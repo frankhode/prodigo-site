@@ -1,0 +1,115 @@
+{
+  "version": 1,
+  "hero": {
+    "eyebrow": "Pródigo · Museo",
+    "title": "Las cosas también cuentan historias.",
+    "description": "Máquinas de escribir, fotografías, obras de arte y objetos que conservan la memoria de otras épocas.",
+    "image": "https://images.unsplash.com/photo-1542026207-23e3e3e85244?w=1800&q=85",
+    "alt": "Máquina de escribir histórica sobre una mesa",
+    "button": "Explorar las colecciones",
+    "href": "#colecciones",
+    "position": "center 52%"
+  },
+  "intro": {
+    "eyebrow": "Una colección, muchas historias",
+    "text": "Un museo para mirar los objetos de otra manera"
+  },
+  "sections": [
+    {
+      "id": "collections",
+      "type": "collections",
+      "visible": true,
+      "eyebrow": "El patrimonio",
+      "title": "Explorá las colecciones",
+      "linkText": "Ver todas las colecciones",
+      "href": "#colecciones",
+      "items": [
+        {
+          "title": "Máquinas de escribir",
+          "text": "Tecnología, diseño e historias de la escritura.",
+          "image": "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8c?w=700&q=85",
+          "alt": "Máquina de escribir",
+          "href": "#colecciones?tipo=Máquinas de escribir"
+        },
+        {
+          "title": "Fotografía",
+          "text": "Imágenes, autores y técnicas fotográficas.",
+          "image": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=700&q=85",
+          "alt": "Cámara fotográfica clásica",
+          "href": "colecciones/fotografia.html"
+        },
+        {
+          "title": "Arte",
+          "text": "Obras y miradas de distintos períodos.",
+          "image": "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=700&q=85",
+          "alt": "Obra pictórica",
+          "href": "#colecciones?tipo=Arte"
+        },
+        {
+          "title": "Objetos",
+          "text": "Piezas singulares de la vida cotidiana.",
+          "image": "https://images.unsplash.com/photo-1490312278390-ab64016e0aa9?w=700&q=85",
+          "alt": "Objetos históricos",
+          "href": "#colecciones?tipo=Objetos"
+        }
+      ]
+    },
+    {
+      "id": "feature",
+      "type": "feature",
+      "visible": true,
+      "eyebrow": "En foco · Colección",
+      "title": "La historia de la escritura, objeto por objeto.",
+      "text": "Antes de las pantallas, cada tecla dejaba una marca. Un recorrido por los mecanismos, las formas y las personas detrás de las máquinas de escribir.",
+      "image": "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=1100&q=85",
+      "alt": "Escritura y papel",
+      "button": "Descubrir la colección",
+      "href": "#colecciones?tipo=Máquinas de escribir"
+    },
+    {
+      "id": "stories",
+      "type": "stories",
+      "visible": true,
+      "eyebrow": "Desde el museo",
+      "title": "Historias para descubrir",
+      "linkText": "Todas las historias",
+      "href": "historias/gulliver.html",
+      "items": [
+        {
+          "eyebrow": "Literatura · Juan Artículo de Prueba",
+          "title": "Los viajes de Gulliver: un mundo al revés",
+          "text": "Un viaje entre gigantes, seres diminutos y la sátira de Jonathan Swift.",
+          "image": "https://commons.wikimedia.org/wiki/Special:FilePath/Gulliver_alternate_frontispice.jpg?width=800",
+          "alt": "Ilustración histórica de Gulliver",
+          "href": "historias/gulliver.html"
+        },
+        {
+          "eyebrow": "Fotografía",
+          "title": "La imagen como objeto y como memoria",
+          "text": "El soporte, la técnica y el paso del tiempo.",
+          "image": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=800&q=85",
+          "alt": "Cámara analógica",
+          "href": "historias/gulliver.html"
+        },
+        {
+          "eyebrow": "Colecciones",
+          "title": "El arte de conservar lo cotidiano",
+          "text": "Un recorrido por los objetos que elegimos preservar.",
+          "image": "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=800&q=85",
+          "alt": "Pintura",
+          "href": "historias/gulliver.html"
+        }
+      ]
+    },
+    {
+      "id": "store",
+      "type": "store",
+      "visible": true,
+      "eyebrow": "Pródigo · Tienda",
+      "title": "Objetos para seguir descubriendo.",
+      "text": "Una selección vinculada a las colecciones del museo.",
+      "button": "Conocer la tienda",
+      "href": "#tienda"
+    }
+  ]
+}
