@@ -45,6 +45,20 @@
   .catalog-detail-layout{grid-template-columns:1fr}
   .catalog-detail-body{grid-row:1;padding:10px 16px}
 }
+
+#catalog-filter-toggle{display:none}
+@media(max-width:600px){
+  #collectionArea{padding-top:12px}
+  #catalog-filter-toggle{display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:8px 14px;border:1px solid var(--line);background:var(--white);color:var(--ink);font-weight:700}
+  #catalog-filter-toggle[aria-expanded="true"] span{transform:rotate(180deg)}
+  #catalog-filter-toggle[aria-expanded="false"] + .catalog-filters{display:none}
+  .catalog-filters{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:8px}
+  .catalog-filters select{min-height:42px}
+  .catalog-tools{margin:6px 0 6px 10px;font-size:13px}
+  .catalog-tools button{padding:6px}
+  .catalog-view{display:flex;gap:6px 12px;margin:8px 0}
+  .catalog-view label{display:flex;align-items:center;gap:4px}
+}
 </style><link rel="stylesheet" href="css/site-header.css"><script src="js/site-header.js" defer></script></head><body><div class="topline"></div><header class="site-header"><div class="head"><a href="#inicio" class="brand">pródigo<span>Museo & colección</span></a><button type="button" class="menu" id="menu" aria-label="Menú" aria-controls="nav" aria-expanded="false">☰</button><nav class="nav" id="nav" aria-label="Navegación principal">
 <a data-section="museo" href="#museo">El museo</a>
 <a data-section="colecciones" href="#colecciones">Colecciones</a>
@@ -67,6 +81,7 @@
 <a href="historias/gulliver.html"><article class="story"><img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=800&q=85" alt="Pintura"><div class="eyebrow">Colecciones</div><h3>El arte de conservar lo cotidiano</h3><p>Un recorrido por los objetos que elegimos preservar.</p><span class="textlink">Leer más ↗</span></article></a>
 </div></section><section class="store"><div class="container store-inner"><div><span class="eyebrow" style="color:#e0a89e">Pródigo · Tienda</span><h2>Objetos para seguir descubriendo.</h2><p>Una selección vinculada a las colecciones del museo.</p></div><a href="#tienda" class="cta">Conocer la tienda ↗</a></div></section></div>
 <div id="secondary" class="page"><div class="container"><div id="collectionArea">
+<button id="catalog-filter-toggle" type="button" aria-expanded="false" aria-controls="catalog-filters">Filtros <span aria-hidden="true">▾</span></button>
 <div class="catalog-filters" id="catalog-filters" aria-label="Filtros del catálogo"></div>
 <div class="catalog-tools"><p id="catalog-status" role="status"></p><button id="catalog-clear" type="button" hidden>Limpiar filtros</button><button id="catalog-retry" type="button" hidden>Reintentar</button></div>
 <div class="catalog-view">
@@ -114,4 +129,4 @@ function render() {
 window.addEventListener('hashchange', render);
 document.getElementById('year').textContent = new Date().getFullYear();
 render();
-</script><script src="js/home-content.js" defer></script><script type="module" src="js/museum-catalog.js?v=2"></script></body></html>
+</script><script src="js/home-content.js" defer></script><script type="module" src="js/museum-catalog.js?v=3"></script></body></html>
