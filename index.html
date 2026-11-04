@@ -9,13 +9,42 @@
 .catalog-filters select,.catalog-tools button,#catalog-more{padding:8px 10px;background:var(--white);border:1px solid var(--line);color:var(--ink);font:inherit}
 .catalog-tools{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin:12px 0}
 .catalog-tools p{color:var(--muted)}
-#listing article{min-width:0}
-#listing img,.catalog-photo-missing{width:100%;height:240px;object-fit:contain;background:#eeeae4}
-.catalog-photo-missing{display:grid;place-items:center;color:var(--muted)}
-#listing dl{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:5px 10px;font-size:13px;overflow-wrap:anywhere}
-#listing dt{color:var(--muted)}
-#listing dd{margin:0}
 #catalog-more{margin-top:20px}
+
+.nav a[aria-current="page"]{background:var(--red);color:var(--white);padding:10px 14px}
+#collectionArea{padding:24px 0 42px}
+.catalog-tools,.catalog-view{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px}
+.catalog-tools{display:inline-flex;margin:10px 14px 10px 0}
+.catalog-tools p{margin:0}
+.catalog-view{display:inline-flex;margin:10px 0;font-size:13px}
+.catalog-view select{padding:6px;background:var(--white);border:1px solid var(--line);color:var(--ink);font:inherit}
+.catalog-grid{--thumb:190px;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,var(--thumb)),1fr));gap:12px}
+.catalog-grid[data-size="small"]{--thumb:125px}
+.catalog-grid[data-size="large"]{--thumb:285px}
+.catalog-thumbnail{position:relative;display:grid;place-items:center;width:100%;aspect-ratio:1;padding:0;overflow:hidden;border:0;background:#eeeae4;color:var(--ink)}
+.catalog-thumbnail img{height:100%;min-height:0;object-fit:contain}
+.catalog-thumbnail-title{position:absolute;inset:auto 0 0;padding:9px;background:#272421;color:var(--white);opacity:0;overflow-wrap:anywhere}
+.catalog-thumbnail:hover .catalog-thumbnail-title,.catalog-thumbnail:focus-visible .catalog-thumbnail-title{opacity:1}
+.catalog-photo-missing{display:grid;place-items:center;min-height:120px;color:var(--muted);font-size:13px}
+#catalog-detail{width:min(940px,calc(100% - 32px));max-height:90dvh;padding:0;border:1px solid var(--line);background:var(--paper);color:var(--ink)}
+#catalog-detail::backdrop{background:#181613b8}
+.catalog-detail-layout{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);align-items:start}
+#catalog-detail-photo{background:#eeeae4}
+#catalog-detail-photo img{max-height:82dvh;object-fit:contain}
+.catalog-detail-body{padding:16px 24px 24px;overflow-wrap:anywhere}
+.catalog-detail-body form{text-align:right}
+.catalog-detail-body button{min-width:40px;min-height:40px;background:var(--white);border:1px solid var(--line);font-size:22px}
+.catalog-detail-body h2{font:400 24px/1.3 'Libre Baskerville',Georgia,serif}
+#catalog-detail-fields{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px 12px;font-size:14px}
+#catalog-detail-fields dt{color:var(--muted)}
+#catalog-detail-fields dd{margin:0}
+@media(max-width:600px){
+  .catalog-grid{--thumb:130px}
+  .catalog-grid[data-size="small"]{--thumb:85px}
+  .catalog-grid[data-size="large"]{--thumb:210px}
+  .catalog-detail-layout{grid-template-columns:1fr}
+  .catalog-detail-body{grid-row:1;padding:10px 16px}
+}
 </style></head><body><div class="topline"></div><header><div class="head"><a href="#inicio" class="brand">pródigo<span>Museo & colección</span></a><button class="menu" id="menu" aria-label="Abrir menú" aria-expanded="false">☰</button><nav class="nav" id="nav"><a href="#museo">El museo</a><a href="#colecciones">Colecciones</a><a href="historias/gulliver.html">Historias</a><a href="#especiales">Especiales</a><a href="#tienda" class="shop">Tienda ↗</a></nav></div></header>
 <main>
 <div id="home" class="page active"><div class="intro"><span class="eyebrow">Una colección, muchas historias</span><p>Un museo para mirar los objetos de otra manera</p></div><section class="hero"><img src="https://images.unsplash.com/photo-1542026207-23e3e3e85244?w=1800&q=85" alt="Máquina de escribir histórica sobre una mesa"><div class="hero-inner"><span class="eyebrow" style="color:#e2a89b">Pródigo · Museo</span><h1>Las cosas también cuentan historias.</h1><p>Máquinas de escribir, fotografías, obras de arte y objetos que conservan la memoria de otras épocas.</p><a class="cta" href="#colecciones">Explorar las colecciones <span>↗</span></a></div></section>
@@ -31,13 +60,27 @@
 <a href="historias/gulliver.html"><article class="story"><img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=800&q=85" alt="Cámara analógica"><div class="eyebrow">Fotografía</div><h3>La imagen como objeto y como memoria</h3><p>El soporte, la técnica y el paso del tiempo.</p><span class="textlink">Leer más ↗</span></article></a>
 <a href="historias/gulliver.html"><article class="story"><img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=800&q=85" alt="Pintura"><div class="eyebrow">Colecciones</div><h3>El arte de conservar lo cotidiano</h3><p>Un recorrido por los objetos que elegimos preservar.</p><span class="textlink">Leer más ↗</span></article></a>
 </div></section><section class="store"><div class="container store-inner"><div><span class="eyebrow" style="color:#e0a89e">Pródigo · Tienda</span><h2>Objetos para seguir descubriendo.</h2><p>Una selección vinculada a las colecciones del museo.</p></div><a href="#tienda" class="cta">Conocer la tienda ↗</a></div></section></div>
-<div id="secondary" class="page"><div class="container"><div class="page-head"><span class="eyebrow" id="sectionTag">Pródigo · Museo</span><h1 id="sectionTitle">Colecciones</h1><p id="sectionIntro"></p></div><div id="collectionArea">
+<div id="secondary" class="page"><div class="container"><div class="page-head" id="sectionHeading"><span class="eyebrow" id="sectionTag">Pródigo · Museo</span><h1 id="sectionTitle">Colecciones</h1><p id="sectionIntro"></p></div><div id="collectionArea">
 <div class="catalog-filters" id="catalog-filters" aria-label="Filtros del catálogo"></div>
 <div class="catalog-tools"><p id="catalog-status" role="status"></p><button id="catalog-clear" type="button" hidden>Limpiar filtros</button><button id="catalog-retry" type="button" hidden>Reintentar</button></div>
-<div class="listing" id="listing"></div><button id="catalog-more" type="button" hidden>Ver más piezas</button>
+<div class="catalog-view">
+<label>Miniaturas <select id="catalog-size"><option value="small">Chicas</option><option value="medium" selected>Medianas</option><option value="large">Grandes</option></select></label>
+<label>Orden <select id="catalog-order"><option value="newest">Más recientes primero</option><option value="oldest">Más antiguas primero</option></select></label>
+</div>
+<div class="catalog-grid" id="listing" data-size="medium"></div><button id="catalog-more" type="button" hidden>Ver más piezas</button>
+<dialog id="catalog-detail" aria-labelledby="catalog-detail-title">
+<div class="catalog-detail-layout">
+<div id="catalog-detail-photo"></div>
+<div class="catalog-detail-body">
+<form method="dialog"><button type="submit" aria-label="Cerrar ficha" autofocus>×</button></form>
+<h2 id="catalog-detail-title"></h2>
+<dl id="catalog-detail-fields"></dl>
+</div>
+</div>
+</dialog>
 </div><div id="genericArea" class="placeholder hidden"><h2 id="genericTitle"></h2><p id="genericDescription"></p></div></div></div>
 </main><footer><div class="container"><div class="footer-grid"><a href="#inicio" class="brand">pródigo<span>Museo & colección</span></a><div class="footer-links"><a href="#museo">El museo</a><a href="#colecciones">Colecciones</a><a href="historias/gulliver.html">Historias</a><a href="#especiales">Especiales</a><a href="#tienda">Tienda</a></div></div><div class="small">© <span id="year"></span> Pródigo · Sitio en desarrollo. La portada incluye imágenes ilustrativas.</div></div></footer>
 <script>
 const copy={museo:['El museo','Pródigo reúne objetos, imágenes e historias. Un espacio dedicado a investigar, conservar y compartir la cultura material.','Estamos preparando esta sección institucional.'],historias:['Historias','Artículos, investigaciones y relatos sobre las piezas y sus contextos.','Próximamente se publicarán artículos del museo.'],especiales:['Especiales','Exhibiciones digitales y recorridos temáticos por las colecciones.','Este espacio estará destinado a muestras y proyectos especiales.'],tienda:['Tienda','Objetos, publicaciones y piezas seleccionadas.','La tienda se integrará aquí cuando su catálogo esté disponible.']};
-function render(){let route=(location.hash.slice(1)||'inicio').split('?')[0];route=Object.hasOwn(copy,route)||route==='colecciones'?route:'inicio';document.getElementById('home').classList.toggle('active',route==='inicio');document.getElementById('secondary').classList.toggle('active',route!=='inicio');document.getElementById('nav').classList.remove('open');document.getElementById('menu').setAttribute('aria-expanded','false');if(route!=='inicio'){const collection=route==='colecciones';document.getElementById('sectionTitle').textContent=collection?'Colecciones':copy[route][0];document.getElementById('sectionIntro').textContent=collection?'Catálogo de piezas del museo.':copy[route][1];document.getElementById('collectionArea').classList.toggle('hidden',!collection);document.getElementById('genericArea').classList.toggle('hidden',collection);if(!collection){document.getElementById('genericTitle').textContent=copy[route][0];document.getElementById('genericDescription').textContent=copy[route][2];}}window.scrollTo(0,0)}window.addEventListener('hashchange',render);document.getElementById('menu').addEventListener('click',()=>{const n=document.getElementById('nav');n.classList.toggle('open');document.getElementById('menu').setAttribute('aria-expanded',n.classList.contains('open'))});document.getElementById('year').textContent=new Date().getFullYear();render();
+function render(){let route=(location.hash.slice(1)||'inicio').split('?')[0];route=Object.hasOwn(copy,route)||route==='colecciones'?route:'inicio';document.getElementById('home').classList.toggle('active',route==='inicio');document.getElementById('secondary').classList.toggle('active',route!=='inicio');document.getElementById('nav').classList.remove('open');document.getElementById('menu').setAttribute('aria-expanded','false');const collection=route==='colecciones';const collectionLink=document.querySelector('#nav a[href="#colecciones"]');if(collection)collectionLink.setAttribute('aria-current','page');else collectionLink.removeAttribute('aria-current');document.getElementById('sectionHeading').classList.toggle('hidden',collection);if(route!=='inicio'){document.getElementById('sectionTitle').textContent=collection?'Colecciones':copy[route][0];document.getElementById('sectionIntro').textContent=collection?'':copy[route][1];document.getElementById('collectionArea').classList.toggle('hidden',!collection);document.getElementById('genericArea').classList.toggle('hidden',collection);if(!collection){document.getElementById('genericTitle').textContent=copy[route][0];document.getElementById('genericDescription').textContent=copy[route][2];}}window.scrollTo(0,0)}window.addEventListener('hashchange',render);document.getElementById('menu').addEventListener('click',()=>{const n=document.getElementById('nav');n.classList.toggle('open');document.getElementById('menu').setAttribute('aria-expanded',n.classList.contains('open'))});document.getElementById('year').textContent=new Date().getFullYear();render();
 </script><script src="js/home-content.js" defer></script><script type="module" src="js/museum-catalog.js"></script></body></html>
