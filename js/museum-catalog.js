@@ -1,10 +1,13 @@
 const endpoint = 'https://wgtircsltokentekqgdq.supabase.co/functions/v1/museum-catalog';
-const fields = [
+const filterFields = [
   ['category', 'Clase de objeto'],
   ['brand', 'Marca'],
   ['model', 'Modelo'],
   ['manufacture_date', 'Fecha'],
   ['type', 'Tipo'],
+];
+const fields = [
+  ...filterFields,
   ['original_number', 'N.º de serie / numeración original'],
   ['code', 'Código de inventario'],
 ];
@@ -22,30 +25,34 @@ function matches(item, except) {
     key === except || item[key] === value);
 }
 
-function photoCard(item) {
-  const card = document.createElement('article');
+const listing = byId('listing');
+const dialog = byId('catalog-detail');
+const order = byId('catalog-order');
+const thumbnailSize = byId('catalog-size');
+
+function titleOf(item) {
+  return [item.brand, item.model].filter(Boolean).join(' ') || item.category;
+}
+
+function showPhoto(container, item, lazy = false) {
   const photo = document.createElement('img');
-  photo.loading = 'lazy';
-  photo.alt = [item.category, item.brand, item.model].filter(Boolean).join(' · ');
-  const url = endpoint + '?foto=' + encodeURIComponent(item.code);
-  photo.src = url;
-  const imageLink = document.createElement('a');
-  imageLink.href = url;
-  imageLink.target = '_blank';
-  imageLink.rel = 'noopener';
-  imageLink.setAttribute('aria-label', 'Ampliar foto de ' + item.code);
-  imageLink.append(photo);
+  photo.alt = lazy ? '' : titleOf(item);
+  if (lazy) photo.loading = 'lazy';
   photo.addEventListener('error', () => {
-    const missing = document.createElement('div');
+    const missing = document.createElement('span');
     missing.className = 'catalog-photo-missing';
     missing.textContent = 'Foto no disponible';
-    imageLink.replaceWith(missing);
+    photo.replaceWith(missing);
   });
-  const body = document.createElement('div');
-  body.className = 'copy';
-  const title = document.createElement('h3');
-  title.textContent = [item.brand, item.model].filter(Boolean).join(' ') || item.category;
-  const details = document.createElement('dl');
+  photo.src = endpoint + '?foto=' + encodeURIComponent(item.code);
+  container.replaceChildren(photo);
+}
+
+function openDetail(item) {
+  byId('catalog-detail-title').textContent = titleOf(item);
+  showPhoto(byId('catalog-detail-photo'), item);
+  const details = byId('catalog-detail-fields');
+  details.replaceChildren();
   for (const [key, label] of fields) {
     if (!item[key]) continue;
     const term = document.createElement('dt');
@@ -54,13 +61,56 @@ function photoCard(item) {
     value.textContent = item[key];
     details.append(term, value);
   }
-  body.append(title, details);
-  card.append(imageLink, body);
-  return card;
+  dialog.showModal();
+  dialog.scrollTop = 0;
 }
 
+function photoCard(item) {
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'catalog-thumbnail';
+  button.setAttribute('aria-label', titleOf(item) + ' · ' + item.code);
+  showPhoto(button, item, true);
+  const title = document.createElement('span');
+  title.className = 'catalog-thumbnail-title';
+  title.textContent = titleOf(item);
+  button.append(title);
+  button.addEventListener('click', () => openDetail(item));
+  return button;
+}
+
+function dateKey(value) {
+  const text = value || '';
+  const iso = text.match(/\b(\d{4})-(\d{2})-(\d{2})\b/);
+  if (iso) return Number(iso[1] + iso[2] + iso[3]);
+  const full = text.match(/\b(\d{1,2})[/.\-](\d{1,2})[/.\-](\d{4})\b/);
+  if (full) return Number(full[3]) * 10000 + Number(full[2]) * 100 + Number(full[1]);
+  const year = text.match(/\b\d{4}\b/);
+  return year ? Number(year[0]) * 10000 : null;
+}
+
+function sortByDate(left, right) {
+  const a = dateKey(left.manufacture_date);
+  const b = dateKey(right.manufacture_date);
+  const byCode = () => collator.compare(left.code, right.code);
+  if (a === null) return b === null ? byCode() : 1;
+  if (b === null) return -1;
+  return (order.value === 'oldest' ? a - b : b - a) || byCode();
+}
+
+thumbnailSize.addEventListener('change', () => listing.dataset.size = thumbnailSize.value);
+order.addEventListener('change', () => {
+  if (!items) return;
+  visible = 24;
+  render();
+});
+dialog.addEventListener('click', event => {
+  if (event.target === dialog) dialog.close();
+});
+dialog.addEventListener('close', () => byId('catalog-detail-photo').replaceChildren());
+
 function render() {
-  const results = items.filter(item => matches(item));
+  const results = items.filter(item => matches(item)).sort(sortByDate);
   for (const [key, { label, input }] of filters) {
     const counts = new Map();
     for (const item of items) {
@@ -120,7 +170,7 @@ async function load() {
   }
 }
 
-for (const [key, name] of fields) {
+for (const [key, name] of filterFields) {
   const label = document.createElement('label');
   label.hidden = true;
   const input = document.createElement('select');
@@ -143,12 +193,13 @@ byId('catalog-more').addEventListener('click', () => {
   const previous = visible;
   visible += 24;
   render();
-  byId('listing').children[previous]?.querySelector('a')?.focus();
+  listing.children[previous]?.focus();
 });
 byId('catalog-retry').addEventListener('click', load);
 
 function onRoute() {
   const [route, query] = location.hash.slice(1).split('?');
+  if (dialog.open) dialog.close();
   if (route !== 'colecciones') return;
   requestedCategory = new URLSearchParams(query).get('tipo') || '';
   if (items) applyCategory();
