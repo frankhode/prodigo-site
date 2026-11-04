@@ -34,6 +34,14 @@ filterToggle.addEventListener('click', () => {
 const dialog = byId('catalog-detail');
 const order = byId('catalog-order');
 const thumbnailSize = byId('catalog-size');
+const sizes = ['small', 'medium', 'large'];
+const sizeLabels = ['chicas', 'medianas', 'grandes'];
+let sizeIndex = 1;
+let newestFirst = true;
+function labelControl(button, label) {
+  button.setAttribute('aria-label', label);
+  button.title = label;
+}
 
 function titleOf(item) {
   return [item.brand, item.model].filter(Boolean).join(' ') || item.category;
@@ -100,11 +108,18 @@ function sortByDate(left, right) {
   const byCode = () => collator.compare(left.code, right.code);
   if (a === null) return b === null ? byCode() : 1;
   if (b === null) return -1;
-  return (order.value === 'oldest' ? a - b : b - a) || byCode();
+  return (newestFirst ? b - a : a - b) || byCode();
 }
 
-thumbnailSize.addEventListener('change', () => listing.dataset.size = thumbnailSize.value);
-order.addEventListener('change', () => {
+thumbnailSize.addEventListener('click', () => {
+  sizeIndex = (sizeIndex + 1) % sizes.length;
+  listing.dataset.size = thumbnailSize.dataset.size = sizes[sizeIndex];
+  labelControl(thumbnailSize, `Miniaturas ${sizeLabels[sizeIndex]}. Cambiar tamaño`);
+});
+order.addEventListener('click', () => {
+  newestFirst = !newestFirst;
+  order.querySelector('span').textContent = newestFirst ? '+' : '−';
+  labelControl(order, `Fecha: más ${newestFirst ? 'recientes' : 'antiguas'} primero. Invertir orden`);
   if (!items) return;
   visible = 24;
   render();
