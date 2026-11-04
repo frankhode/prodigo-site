@@ -1,0 +1,19 @@
+.topline{height:5px;background:#9b352a}
+.site-header{position:sticky;top:0;z-index:10;border-bottom:1px solid #d8d3cb;background:rgba(245,243,239,.98)}
+.site-header .head{max-width:1440px;margin:auto;display:flex;align-items:center;justify-content:space-between;min-height:92px;padding:0 48px;gap:28px}
+.site-header .brand{font-family:'Libre Baskerville',Georgia,serif;font-size:33px;letter-spacing:-2px;white-space:nowrap}
+.site-header .brand span{display:block;font:500 10px 'DM Sans',sans-serif;letter-spacing:2.8px;text-transform:uppercase;margin-top:4px}
+.site-header a{color:inherit;text-decoration:none}
+.site-header .nav{display:flex;gap:12px;align-items:center}
+.site-header .nav a{font-size:14px;font-weight:600;padding:10px 14px;white-space:nowrap}
+.site-header .nav a:hover{color:#9b352a}
+.site-header .nav .shop{border:1px solid #272421;padding:12px 20px}
+.site-header .nav a[aria-current="page"]{background:#9b352a;border-color:#9b352a;color:#fff}
+.site-header .menu{display:none;border:0;background:none;color:inherit;font:inherit;font-size:24px;cursor:pointer}
+@media(max-width:950px){
+  .site-header .head{padding:0 25px;min-height:78px}
+  .site-header .menu{display:block}
+  .site-header .nav{display:none;position:absolute;top:100%;left:0;right:0;background:#f5f3ef;padding:16px 25px;flex-direction:column;align-items:flex-start;border-bottom:1px solid #d8d3cb;gap:4px}
+  .site-header .nav.open{display:flex}
+}
+@media(max-width:600px){.site-header .brand{font-size:27px}}
