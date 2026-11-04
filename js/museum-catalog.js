@@ -47,7 +47,7 @@ function titleOf(item) {
   return [item.brand, item.model].filter(Boolean).join(' ') || item.category;
 }
 
-function showPhoto(container, item, lazy = false) {
+function showPhoto(container, item, lazy = false, image = 1) {
   const photo = document.createElement('img');
   photo.alt = lazy ? '' : titleOf(item);
   if (lazy) photo.loading = 'lazy';
@@ -57,7 +57,10 @@ function showPhoto(container, item, lazy = false) {
     missing.textContent = 'Foto no disponible';
     photo.replaceWith(missing);
   });
-  photo.src = endpoint + '?foto=' + encodeURIComponent(item.code);
+  const url = new URL(endpoint);
+  url.searchParams.set('foto',item.code);
+  if (image > 1) url.searchParams.set('imagen',image);
+  photo.src = url;
   const crop = item.photo_crop;
   if (lazy && Array.isArray(crop) && crop.length === 4 && crop.every(Number.isFinite)) {
     const [x,y,width,height] = crop;
@@ -77,9 +80,28 @@ function showPhoto(container, item, lazy = false) {
   container.replaceChildren(photo);
 }
 
+const gallery = byId('catalog-gallery');
+const previousPhoto = byId('catalog-photo-prev');
+const nextPhoto = byId('catalog-photo-next');
+let detailItem;
+let detailPhoto = 1;
+
+function renderDetailPhoto() {
+  const total = detailItem.photo_count || 1;
+  showPhoto(byId('catalog-detail-photo'), detailItem, false, detailPhoto);
+  gallery.hidden = total === 1;
+  byId('catalog-photo-position').textContent = `Foto ${detailPhoto} de ${total}`;
+  previousPhoto.disabled = detailPhoto <= 1;
+  nextPhoto.disabled = detailPhoto >= total;
+}
+previousPhoto.addEventListener('click', () => { detailPhoto--; renderDetailPhoto(); });
+nextPhoto.addEventListener('click', () => { detailPhoto++; renderDetailPhoto(); });
+
 function openDetail(item) {
   byId('catalog-detail-title').textContent = titleOf(item);
-  showPhoto(byId('catalog-detail-photo'), item);
+  detailItem = item;
+  detailPhoto = 1;
+  renderDetailPhoto();
   const details = byId('catalog-detail-fields');
   details.replaceChildren();
   for (const [key, label] of fields) {

@@ -37,6 +37,10 @@
 .catalog-detail-layout{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);align-items:start}
 #catalog-detail-photo{background:#eeeae4}
 #catalog-detail-photo img{max-height:82dvh;object-fit:contain}
+.catalog-detail-layout:has(.catalog-gallery:not([hidden])) #catalog-detail-photo img{max-height:72dvh}
+.catalog-gallery:not([hidden]){display:flex;gap:14px;align-items:center;justify-content:center;padding:8px}
+.catalog-gallery button{min-width:44px;min-height:44px;background:var(--white);color:var(--ink);border:1px solid var(--line);font-size:18px}
+.catalog-gallery button:disabled{opacity:.4}
 .catalog-detail-body{padding:16px 24px 24px;overflow-wrap:anywhere}
 .catalog-detail-body form{text-align:right}
 .catalog-detail-body button{min-width:40px;min-height:40px;background:var(--white);border:1px solid var(--line);font-size:22px}
@@ -102,7 +106,14 @@
 <div class="catalog-grid" id="listing" data-size="medium"></div><button id="catalog-more" type="button" hidden>Ver más piezas</button>
 <dialog id="catalog-detail" aria-labelledby="catalog-detail-title">
 <div class="catalog-detail-layout">
-<div id="catalog-detail-photo"></div>
+<div>
+  <div id="catalog-detail-photo"></div>
+  <nav id="catalog-gallery" class="catalog-gallery" aria-label="Fotos del objeto" hidden>
+    <button type="button" id="catalog-photo-prev" aria-label="Foto anterior">←</button>
+    <span id="catalog-photo-position" aria-live="polite"></span>
+    <button type="button" id="catalog-photo-next" aria-label="Foto siguiente">→</button>
+  </nav>
+</div>
 <div class="catalog-detail-body">
 <form method="dialog"><button type="submit" aria-label="Cerrar ficha" autofocus>×</button></form>
 <h2 id="catalog-detail-title"></h2>
@@ -140,4 +151,4 @@ function render() {
 window.addEventListener('hashchange', render);
 document.getElementById('year').textContent = new Date().getFullYear();
 render();
-</script><script src="js/home-content.js" defer></script><script type="module" src="js/museum-catalog.js?v=5"></script></body></html>
+</script><script src="js/home-content.js" defer></script><script type="module" src="js/museum-catalog.js?v=6"></script></body></html>
