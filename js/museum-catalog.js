@@ -58,6 +58,22 @@ function showPhoto(container, item, lazy = false) {
     photo.replaceWith(missing);
   });
   photo.src = endpoint + '?foto=' + encodeURIComponent(item.code);
+  const crop = item.photo_crop;
+  if (lazy && Array.isArray(crop) && crop.length === 4 && crop.every(Number.isFinite)) {
+    const [x,y,width,height] = crop;
+    if (x >= 0 && y >= 0 && width > 0 && height > 0
+      && width <= 1 && height <= 1 && x + width <= 1.000001 && y + height <= 1.000001) {
+      const frame = document.createElement('span');
+      frame.className = 'catalog-crop';
+      Object.assign(photo.style,{
+        left: `${-100*x/width}%`, top: `${-100*y/height}%`,
+        width: `${100/width}%`, height: `${100/height}%`,
+      });
+      frame.append(photo);
+      container.replaceChildren(frame);
+      return;
+    }
+  }
   container.replaceChildren(photo);
 }
 

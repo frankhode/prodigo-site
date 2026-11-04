@@ -27,6 +27,8 @@
 .catalog-grid[data-size="large"]{--thumb:285px}
 .catalog-thumbnail{position:relative;display:grid;place-items:center;width:100%;aspect-ratio:1;padding:0;overflow:hidden;border:0;background:#eeeae4;color:var(--ink)}
 .catalog-thumbnail img{height:100%;min-height:0;object-fit:contain}
+.catalog-thumbnail .catalog-crop{position:absolute;inset:0;overflow:hidden;display:grid;place-items:center}
+.catalog-thumbnail .catalog-crop img{position:absolute;max-width:none;object-fit:fill}
 .catalog-thumbnail-title{position:absolute;inset:auto 0 0;padding:9px;background:#272421;color:var(--white);opacity:0;overflow-wrap:anywhere}
 .catalog-thumbnail:hover .catalog-thumbnail-title,.catalog-thumbnail:focus-visible .catalog-thumbnail-title{opacity:1}
 .catalog-photo-missing{display:grid;place-items:center;min-height:120px;color:var(--muted);font-size:13px}
@@ -138,4 +140,4 @@ function render() {
 window.addEventListener('hashchange', render);
 document.getElementById('year').textContent = new Date().getFullYear();
 render();
-</script><script src="js/home-content.js" defer></script><script type="module" src="js/museum-catalog.js?v=4"></script></body></html>
+</script><script src="js/home-content.js" defer></script><script type="module" src="js/museum-catalog.js?v=5"></script></body></html>
