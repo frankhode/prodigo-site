@@ -26,6 +26,11 @@ function matches(item, except) {
 }
 
 const listing = byId('listing');
+const filterToggle = byId('catalog-filter-toggle');
+filterToggle.addEventListener('click', () => {
+  const expanded = filterToggle.getAttribute('aria-expanded') === 'true';
+  filterToggle.setAttribute('aria-expanded', String(!expanded));
+});
 const dialog = byId('catalog-detail');
 const order = byId('catalog-order');
 const thumbnailSize = byId('catalog-size');
@@ -130,7 +135,9 @@ function render() {
   byId('catalog-status').textContent = results.length
     ? results.length + (results.length === 1 ? ' pieza' : ' piezas')
     : Object.keys(selection).length ? 'No hay piezas con estos filtros.' : 'Todavía no hay piezas en el catálogo.';
-  byId('catalog-clear').hidden = !Object.keys(selection).length;
+  const activeFilters = Object.keys(selection).length;
+  filterToggle.firstChild.textContent = activeFilters ? `Filtros (${activeFilters}) ` : 'Filtros ';
+  byId('catalog-clear').hidden = !activeFilters;
   byId('catalog-more').hidden = visible >= results.length;
   byId('listing').replaceChildren(...results.slice(0, visible).map(photoCard));
 }
