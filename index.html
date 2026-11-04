@@ -48,7 +48,7 @@
 </style><link rel="stylesheet" href="css/site-header.css"><script src="js/site-header.js" defer></script></head><body><div class="topline"></div><header class="site-header"><div class="head"><a href="#inicio" class="brand">pródigo<span>Museo & colección</span></a><button type="button" class="menu" id="menu" aria-label="Menú" aria-controls="nav" aria-expanded="false">☰</button><nav class="nav" id="nav" aria-label="Navegación principal">
 <a data-section="museo" href="#museo">El museo</a>
 <a data-section="colecciones" href="#colecciones">Colecciones</a>
-<a data-section="historias" href="historias/gulliver.html">Historias</a>
+<a data-section="historias" href="historias/">Historias</a>
 <a data-section="especiales" href="#especiales">Especiales</a>
 <a data-section="tienda" href="#tienda" class="shop">Tienda ↗</a>
 </nav></div></header>
@@ -61,7 +61,7 @@
 <a class="tile" href="#colecciones"><img src="https://images.unsplash.com/photo-1490312278390-ab64016e0aa9?w=700&q=85" alt="Objetos históricos"><div class="tile-body"><h3>Objetos</h3><p>Piezas singulares de la vida cotidiana.</p><span class="arrow">Explorar ↗</span></div></a>
 </div></section>
 <section class="feature"><div class="container feature-grid"><img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?w=1100&q=85" alt="Escritura y papel"><div><span class="eyebrow">En foco · Colección</span><h2>La historia de la escritura, objeto por objeto.</h2><p>Antes de las pantallas, cada tecla dejaba una marca. Un recorrido por los mecanismos, las formas y las personas detrás de las máquinas de escribir.</p><a class="cta darkcta" href="#colecciones?tipo=Máquinas de escribir">Descubrir la colección ↗</a></div></div></section>
-<section class="container section"><div class="heading"><div><span class="eyebrow">Desde el museo</span><h2>Historias para descubrir</h2></div><a href="historias/gulliver.html" class="textlink">Todas las historias ↗</a></div><div class="stories">
+<section class="container section"><div class="heading"><div><span class="eyebrow">Desde el museo</span><h2>Historias para descubrir</h2></div><a href="historias/" class="textlink">Todas las historias ↗</a></div><div class="stories">
 <a href="historias/gulliver.html"><article class="story"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Gulliver_alternate_frontispice.jpg?width=800" alt="Papel y escritura"><div class="eyebrow">Literatura · Juan Artículo de Prueba</div><h3>Los viajes de Gulliver: un mundo al revés</h3><p>Un viaje entre gigantes, seres diminutos y la sátira de Jonathan Swift.</p><span class="textlink">Leer más ↗</span></article></a>
 <a href="historias/gulliver.html"><article class="story"><img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=800&q=85" alt="Cámara analógica"><div class="eyebrow">Fotografía</div><h3>La imagen como objeto y como memoria</h3><p>El soporte, la técnica y el paso del tiempo.</p><span class="textlink">Leer más ↗</span></article></a>
 <a href="historias/gulliver.html"><article class="story"><img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=800&q=85" alt="Pintura"><div class="eyebrow">Colecciones</div><h3>El arte de conservar lo cotidiano</h3><p>Un recorrido por los objetos que elegimos preservar.</p><span class="textlink">Leer más ↗</span></article></a>
@@ -85,16 +85,19 @@
 </div>
 </dialog>
 </div><div id="genericArea" class="placeholder hidden"><p id="genericDescription"></p></div></div></div>
-</main><footer><div class="container"><div class="footer-grid"><a href="#inicio" class="brand">pródigo<span>Museo & colección</span></a><div class="footer-links"><a href="#museo">El museo</a><a href="#colecciones">Colecciones</a><a href="historias/gulliver.html">Historias</a><a href="#especiales">Especiales</a><a href="#tienda">Tienda</a></div></div><div class="small">© <span id="year"></span> Pródigo · Sitio en desarrollo. La portada incluye imágenes ilustrativas.</div></div></footer>
+</main><footer><div class="container"><div class="footer-grid"><a href="#inicio" class="brand">pródigo<span>Museo & colección</span></a><div class="footer-links"><a href="#museo">El museo</a><a href="#colecciones">Colecciones</a><a href="historias/">Historias</a><a href="#especiales">Especiales</a><a href="#tienda">Tienda</a></div></div><div class="small">© <span id="year"></span> Pródigo · Sitio en desarrollo. La portada incluye imágenes ilustrativas.</div></div></footer>
 <script>
 const sectionMessages = {
   museo: 'Estamos preparando esta sección institucional.',
-  historias: 'Próximamente se publicarán artículos del museo.',
   especiales: 'Este espacio estará destinado a muestras y proyectos especiales.',
   tienda: 'La tienda se integrará aquí cuando su catálogo esté disponible.'
 };
 function render() {
   const requested = location.hash.slice(1).split('?')[0];
+  if (requested === 'historias') {
+    location.replace('historias/');
+    return;
+  }
   const collection = requested === 'colecciones';
   const secondary = collection || Object.hasOwn(sectionMessages, requested);
   document.getElementById('home').classList.toggle('active', !secondary);
